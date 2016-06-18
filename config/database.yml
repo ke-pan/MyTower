@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 1000
+
+development:
+  <<: *default
+  database: my_tower_development
+
+test:
+  <<: *default
+  database: my_tower_test
+
+production:
+  <<: *default
+  database: my_tower_production
