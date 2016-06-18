@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :todo do
-    title "MyString"
-    description "MyText"
-    slug "MyString"
+    title 'todo'
+    description 'this is a todo'
+    project
   end
 end

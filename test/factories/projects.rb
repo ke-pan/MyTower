@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
-    name "MyString"
-    team nil
+    name 'project'
+    team
   end
 end
