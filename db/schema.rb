@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618110107) do
+ActiveRecord::Schema.define(version: 20160618112524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 20160618110107) do
 
   add_index "todos", ["project_id"], name: "index_todos_on_project_id", using: :btree
   add_index "todos", ["slug"], name: "index_todos_on_slug", unique: true, using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            null: false
+    t.string   "password_digest", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
   add_foreign_key "comments", "todos"
   add_foreign_key "projects", "teams"

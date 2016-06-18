@@ -11,6 +11,7 @@ gem 'unicorn'
 gem 'nokogiri', '1.6.7.2'
 gem 'friendly_id'
 gem 'pg'
+gem 'bcrypt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
