@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :team do
-    name "MyString"
+    name 'my team'
   end
 end

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20160618094805) do
   enable_extension "plpgsql"
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.string   "slug",       null: false
     t.integer  "team_id"
     t.datetime "created_at", null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160618094805) do
   add_index "projects", ["team_id"], name: "index_projects_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.string   "slug",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160618094805) do
   add_index "teams", ["slug"], name: "index_teams_on_slug", unique: true, using: :btree
 
   create_table "todos", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",       null: false
     t.text     "description"
     t.string   "slug",        null: false
     t.integer  "project_id"

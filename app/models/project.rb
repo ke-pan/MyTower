@@ -3,7 +3,7 @@
 # Table name: projects
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string           not null
 #  slug       :string           not null
 #  team_id    :integer
 #  created_at :datetime         not null
@@ -20,5 +20,6 @@
 #
 
 class Project < ActiveRecord::Base
+  include HexedSlugable
   belongs_to :team
 end

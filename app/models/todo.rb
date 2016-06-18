@@ -3,7 +3,7 @@
 # Table name: todos
 #
 #  id          :integer          not null, primary key
-#  title       :string
+#  title       :string           not null
 #  description :text
 #  slug        :string           not null
 #  project_id  :integer
@@ -21,4 +21,6 @@
 #
 
 class Todo < ActiveRecord::Base
+  include HexedSlugable
+  belongs_to :project
 end
