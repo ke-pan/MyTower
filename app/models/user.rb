@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  has_many :team_memberships
+  has_many :teams, through: :team_memberships
+
   validates :name, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :password, length: { minimum: 6 }, on: :create
 end

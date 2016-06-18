@@ -14,4 +14,11 @@ class UserTest < ActiveSupport::TestCase
     user.password = 'abcdef'
     assert user.save
   end
+
+  test 'has many teams' do
+    user = create :user
+    team = create :team
+    create :team_membership, team: team, user: user
+    assert user.teams.include? team
+  end
 end

@@ -17,6 +17,8 @@ class Team < ActiveRecord::Base
   include HexedSlugable
 
   has_many :projects
+  has_many :team_memberships
+  has_many :members, through: :team_memberships, source: :user
 
   validates :name, presence: true
 end
