@@ -23,4 +23,6 @@
 class Todo < ActiveRecord::Base
   include HexedSlugable
   belongs_to :project
+
+  validates :title, presence: true
 end

@@ -15,4 +15,8 @@
 
 class Team < ActiveRecord::Base
   include HexedSlugable
+
+  has_many :projects
+
+  validates :name, presence: true
 end
