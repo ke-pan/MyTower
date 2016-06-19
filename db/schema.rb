@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618114347) do
+ActiveRecord::Schema.define(version: 20160619093032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,24 @@ ActiveRecord::Schema.define(version: 20160618114347) do
 
   add_index "comments", ["slug"], name: "index_comments_on_slug", unique: true, using: :btree
   add_index "comments", ["todo_id"], name: "index_comments_on_todo_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "project_name",  null: false
+    t.string   "project_path",  null: false
+    t.string   "resource_name", null: false
+    t.string   "resource_path", null: false
+    t.string   "description",   null: false
+    t.string   "user_name",     null: false
+    t.string   "user_path",     null: false
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "events", ["created_at"], name: "index_events_on_created_at", using: :btree
+  add_index "events", ["team_id"], name: "index_events_on_team_id", using: :btree
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",       null: false
@@ -74,11 +92,15 @@ ActiveRecord::Schema.define(version: 20160618114347) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "slug",            null: false
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   add_foreign_key "comments", "todos"
+  add_foreign_key "events", "teams"
+  add_foreign_key "events", "users"
   add_foreign_key "projects", "teams"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_memberships", "users"

@@ -19,6 +19,7 @@ class Team < ActiveRecord::Base
   has_many :projects
   has_many :team_memberships
   has_many :members, through: :team_memberships, source: :user
+  has_many :events
 
   validates :name, presence: true
 end
