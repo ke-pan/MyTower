@@ -10,6 +10,7 @@ class TodosController < ApplicationController
   def create
     @todo = project.todos.new(todo_params)
     if @todo.save
+      generate_event(project, '创建了任务', @todo)
       head 200
     else
       head 400
