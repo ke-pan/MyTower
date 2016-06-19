@@ -1,10 +1,11 @@
 class TodosController < ApplicationController
+  before_action :set_todo, only: [:show, :update, :destroy]
+
   def index
     @todos = project.todos
   end
 
   def show
-    @todo = project.todos.friendly.find(params[:id])
   end
 
   def create
@@ -21,6 +22,8 @@ class TodosController < ApplicationController
   end
 
   def destroy
+    @todo.destroy
+    head :no_content
   end
 
   def restore
@@ -34,5 +37,9 @@ class TodosController < ApplicationController
 
   def todo_params
     params.require(:todo).permit(:title, :description)
+  end
+
+  def set_todo
+    @todo = Todo.friendly.find(params[:id])
   end
 end

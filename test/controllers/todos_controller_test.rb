@@ -13,7 +13,7 @@ class TodosControllerTest < ActionController::TestCase
 
   test 'show' do
     @todo = create :todo, project: @project
-    get :show, project_id: @project, id: @todo
+    get :show, id: @todo
     assert_response :success
     assert_not_nil assigns(:todo)
   end
@@ -37,5 +37,13 @@ class TodosControllerTest < ActionController::TestCase
     assert_difference('Event.count', 1) do
       post :create, project_id: @project, todo: attributes_for(:todo)
     end
+  end
+
+  test 'destroy' do
+    @todo = create :todo, project: @project
+    assert_difference('Todo.count', -1) do
+      delete :destroy, id: @todo.id
+    end
+    assert_response 204
   end
 end
