@@ -1,34 +1,41 @@
 require 'test_helper'
 
 class TodosControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
+  setup do
+    @project = create :project
   end
 
-  test "should get show" do
-    get :show
+  test 'index' do
+    get :index, project_id: @project
     assert_response :success
+    assert_not_nil assigns(:todos)
   end
 
-  test "should get create" do
-    get :create
+  test 'show' do
+    @todo = create :todo, project: @project
+    get :show, project_id: @project, id: @todo
     assert_response :success
+    assert_not_nil assigns(:todo)
   end
 
-  test "should get update" do
-    get :update
-    assert_response :success
+  test 'create with title can be saved' do
+    assert_difference('Todo.count', 1) do
+      post :create, project_id: @project, todo: attributes_for(:todo)
+    end
+    assert_response 200
   end
 
-  test "should get destroy" do
-    get :destroy
-    assert_response :success
+  test 'create without title cant be saved' do
+    assert_difference('Todo.count', 0) do
+      post :create, project_id: @project,
+                    todo: { title: '', description: 'description' }
+    end
+    assert_response 400
   end
 
-  test "should get restore" do
-    get :restore
-    assert_response :success
+  test 'create generate an event' do
+    assert_difference('Event.count', 1) do
+      post :create, project_id: @project, todo: attributes_for(:todo)
+    end
   end
-
 end
