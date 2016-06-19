@@ -46,4 +46,11 @@ class TodosControllerTest < ActionController::TestCase
     end
     assert_response 204
   end
+
+  test 'destroy generate an event' do
+    @todo = create :todo, project: @project
+    assert_difference('Event.count', 1) do
+      delete :destroy, id: @todo.id
+    end
+  end
 end

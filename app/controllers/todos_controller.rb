@@ -23,6 +23,7 @@ class TodosController < ApplicationController
 
   def destroy
     @todo.destroy
+    generate_event(project, '删除了任务', @todo)
     head :no_content
   end
 
