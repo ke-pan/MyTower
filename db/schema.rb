@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620134452) do
+ActiveRecord::Schema.define(version: 20160620224908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,17 +28,19 @@ ActiveRecord::Schema.define(version: 20160620134452) do
   add_index "comments", ["todo_id"], name: "index_comments_on_todo_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "project_name",  null: false
-    t.string   "project_path",  null: false
-    t.string   "resource_name", null: false
-    t.string   "resource_path", null: false
-    t.string   "description",   null: false
-    t.string   "user_name",     null: false
-    t.string   "user_path",     null: false
+    t.string   "project_name",     null: false
+    t.string   "project_path",     null: false
+    t.string   "resource_name",    null: false
+    t.string   "resource_path",    null: false
+    t.string   "description",      null: false
+    t.string   "user_name",        null: false
+    t.string   "user_path",        null: false
     t.integer  "user_id"
     t.integer  "team_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "subresource"
+    t.string   "subresource_path"
   end
 
   add_index "events", ["created_at"], name: "index_events_on_created_at", using: :btree

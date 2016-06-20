@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         put :reopen
         put :assign
       end
+      resources :comments, only: [:create]
     end
   end
   resources :user

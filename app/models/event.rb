@@ -2,18 +2,20 @@
 #
 # Table name: events
 #
-#  id            :integer          not null, primary key
-#  project_name  :string           not null
-#  project_path  :string           not null
-#  resource_name :string           not null
-#  resource_path :string           not null
-#  description   :string           not null
-#  user_name     :string           not null
-#  user_path     :string           not null
-#  user_id       :integer
-#  team_id       :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id               :integer          not null, primary key
+#  project_name     :string           not null
+#  project_path     :string           not null
+#  resource_name    :string           not null
+#  resource_path    :string           not null
+#  description      :string           not null
+#  user_name        :string           not null
+#  user_path        :string           not null
+#  user_id          :integer
+#  team_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  subresource      :string
+#  subresource_path :string
 #
 # Indexes
 #
