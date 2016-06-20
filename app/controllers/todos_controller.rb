@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy]
+  before_action :set_todo, only: [:show, :update, :destroy, :restore]
 
   def index
     @todos = project.todos
@@ -28,6 +28,8 @@ class TodosController < ApplicationController
   end
 
   def restore
+    @todo.restore
+    generate_event(project, '恢复了任务', @todo)
   end
 
   private

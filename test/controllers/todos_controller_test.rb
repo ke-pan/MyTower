@@ -53,4 +53,12 @@ class TodosControllerTest < ActionController::TestCase
       delete :destroy, id: @todo.id, project_id: @project
     end
   end
+
+  test 'restore' do
+    todo = create :todo, project: @project
+    todo.destroy
+    assert_difference('Todo.count', 1) do
+      put :restore, id: todo.id, project_id: @project
+    end
+  end
 end
