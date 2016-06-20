@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :team_memberships
   has_many :teams, through: :team_memberships
   has_many :events
+  has_many :todos
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :password, length: { minimum: 6 }, on: :create

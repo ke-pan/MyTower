@@ -10,16 +10,19 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  deleted_at  :datetime
+#  user_id     :integer
 #
 # Indexes
 #
 #  index_todos_on_deleted_at  (deleted_at)
 #  index_todos_on_project_id  (project_id)
 #  index_todos_on_slug        (slug) UNIQUE
+#  index_todos_on_user_id     (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_45054f9c45  (project_id => projects.id)
+#  fk_rails_d94154aa95  (user_id => users.id)
 #
 
 class Todo < ActiveRecord::Base
@@ -27,6 +30,7 @@ class Todo < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :project
+  belongs_to :user
   has_many :comments
 
   validates :title, presence: true
