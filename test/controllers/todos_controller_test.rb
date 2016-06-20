@@ -85,6 +85,14 @@ class TodosControllerTest < ActionController::TestCase
     end
   end
 
+  test 'assign an assigned todo generate an event' do
+    user1 = create :user, name: 'john'
+    user2 = create :user, name: 'smith'
+    todo = create :todo, project: @project, assignee: user1
+    xhr :put, :assign, id: todo, project_id: @project, user_slug: user2.slug
+    assert_equal '把 john 的任务指派给 smith', Event.last.description
+  end
+
   test 'pause' do
     todo = create :todo, project: @project, status: 1
     xhr :put, :pause, id: todo, project_id: @project

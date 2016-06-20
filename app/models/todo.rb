@@ -37,4 +37,6 @@ class Todo < ActiveRecord::Base
   validates :title, presence: true
 
   enum status: [:paused, :run, :finished]
+
+  delegate :name, to: :assignee, prefix: true
 end

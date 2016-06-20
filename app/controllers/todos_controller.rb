@@ -25,8 +25,11 @@ class TodosController < ApplicationController
 
   def assign
     assignee = User.friendly.find params[:user_slug]
+    return if @todo.assignee == assignee
+    message = @todo.assignee ? "把 #{@todo.assignee_name} 的任务指派给 #{assignee.name}"
+                             : "给 #{assignee.name}指派了任务"
     @todo.update(assignee: assignee)
-    generate_event(project, "给 #{assignee.name}指派了任务", @todo)
+    generate_event(project, message, @todo)
   end
 
   def pause
