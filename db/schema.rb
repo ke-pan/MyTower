@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620134110) do
+ActiveRecord::Schema.define(version: 20160620134452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,14 +76,15 @@ ActiveRecord::Schema.define(version: 20160620134110) do
   add_index "teams", ["slug"], name: "index_teams_on_slug", unique: true, using: :btree
 
   create_table "todos", force: :cascade do |t|
-    t.string   "title",       null: false
+    t.string   "title",                   null: false
     t.text     "description"
-    t.string   "slug",        null: false
+    t.string   "slug",                    null: false
     t.integer  "project_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.datetime "deleted_at"
     t.integer  "user_id"
+    t.integer  "status",      default: 0, null: false
   end
 
   add_index "todos", ["deleted_at"], name: "index_todos_on_deleted_at", using: :btree

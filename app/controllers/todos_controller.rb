@@ -1,5 +1,7 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy]
+  before_action :set_todo, only: [:show, :update, :destroy,
+                                  :assign, :pause, :run,
+                                  :finish, :reopen]
 
   def index
     @todos = project.todos
@@ -19,6 +21,32 @@ class TodosController < ApplicationController
   end
 
   def update
+  end
+
+  def assign
+    assignee = User.friendly.find params[:user_slug]
+    @todo.update(assignee: assignee)
+    generate_event(project, "给 #{assignee.name}指派了任务", @todo)
+  end
+
+  def pause
+    @todo.paused!
+    generate_event(project, "暂停处理这条任务", @todo)
+  end
+
+  def run
+    @todo.update(assignee: current_user, status: Todo.statuses[:run])
+    generate_event(project, "开始处理这条任务", @todo)
+  end
+
+  def finish
+    @todo.finished!
+    generate_event(project, "完成了任务", @todo)
+  end
+
+  def reopen
+    @todo.paused!
+    generate_event(project, "重新打开了任务", @todo)
   end
 
   def destroy

@@ -69,4 +69,77 @@ class TodosControllerTest < ActionController::TestCase
       put :restore, id: todo, project_id: @project
     end
   end
+
+  test 'assign' do
+    todo = create :todo, project: @project
+    user = create :user
+    xhr :put, :assign, id: todo, project_id: @project, user_slug: user.slug
+    assert_equal user, todo.reload.assignee
+  end
+
+  test 'assign generate an event' do
+    todo = create :todo, project: @project
+    user = create :user
+    assert_difference('Event.count', 1) do
+      xhr :put, :assign, id: todo, project_id: @project, user_slug: user.slug
+    end
+  end
+
+  test 'pause' do
+    todo = create :todo, project: @project, status: 1
+    xhr :put, :pause, id: todo, project_id: @project
+    assert todo.reload.paused?
+  end
+
+  test 'pause generate an event' do
+    todo = create :todo, project: @project, status: 1
+    assert_difference('Event.count', 1) do
+      xhr :put, :pause, id: todo, project_id: @project
+    end
+  end
+
+  test 'finish' do
+    todo = create :todo, project: @project
+    xhr :put, :finish, id: todo, project_id: @project
+    assert todo.reload.finished?
+  end
+
+  test 'finish generate an event' do
+    todo = create :todo, project: @project, status: 1
+    assert_difference('Event.count', 1) do
+      xhr :put, :finish, id: todo, project_id: @project
+    end
+  end
+
+  test 'run' do
+    todo = create :todo, project: @project
+    xhr :put, :run, id: todo, project_id: @project
+    assert todo.reload.run?
+  end
+
+  test 'run generate an event' do
+    todo = create :todo, project: @project
+    assert_difference('Event.count', 1) do
+      xhr :put, :run, id: todo, project_id: @project
+    end
+  end
+
+  test 'run assign an assignee' do
+    todo = create :todo, project: @project
+    xhr :put, :run, id: todo, project_id: @project
+    assert_not_nil todo.reload.assignee
+  end
+
+  test 'reopen' do
+    todo = create :todo, project: @project, status: 2
+    xhr :put, :reopen, id: todo, project_id: @project
+    assert todo.reload.paused?
+  end
+
+  test 'reopen generate an event' do
+    todo = create :todo, project: @project, status: 2
+    assert_difference('Event.count', 1) do
+      xhr :put, :reopen, id: todo, project_id: @project
+    end
+  end
 end

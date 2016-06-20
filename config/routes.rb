@@ -4,7 +4,14 @@ Rails.application.routes.draw do
   end
   resources :projects, only: [:show, :destroy, :update, :edit] do
     resources :todos, except: [:edit, :new] do
-      put :restore, on: :member
+      member do
+        put :restore
+        put :pause
+        put :run
+        put :finish
+        put :reopen
+        put :assign
+      end
     end
   end
   resources :user
