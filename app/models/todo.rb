@@ -9,9 +9,11 @@
 #  project_id  :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  deleted_at  :datetime
 #
 # Indexes
 #
+#  index_todos_on_deleted_at  (deleted_at)
 #  index_todos_on_project_id  (project_id)
 #  index_todos_on_slug        (slug) UNIQUE
 #
@@ -22,6 +24,8 @@
 
 class Todo < ActiveRecord::Base
   include HexedSlugable
+  acts_as_paranoid
+
   belongs_to :project
   has_many :comments
 

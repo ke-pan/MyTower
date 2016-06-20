@@ -12,6 +12,7 @@ gem 'nokogiri', '1.6.7.2'
 gem 'friendly_id'
 gem 'pg'
 gem 'bcrypt'
+gem 'paranoia', '~> 2.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

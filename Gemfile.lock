@@ -84,6 +84,8 @@ GEM
     minitest (5.9.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    paranoia (2.1.5)
+      activerecord (~> 4.0)
     pg (0.18.4)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -160,6 +162,7 @@ DEPENDENCIES
   friendly_id
   jquery-rails
   nokogiri (= 1.6.7.2)
+  paranoia (~> 2.0)
   pg
   rails (= 4.2.6)
   sass-rails (~> 5.0)

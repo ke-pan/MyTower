@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy, :restore]
+  before_action :set_todo, only: [:show, :update, :destroy]
 
   def index
     @todos = project.todos
@@ -28,7 +28,8 @@ class TodosController < ApplicationController
   end
 
   def restore
-    @todo.restore
+    @todo = Todo.only_deleted.friendly.find(params[:id])
+    @todo.restore(recursive: true)
     generate_event(project, '恢复了任务', @todo)
   end
 
