@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class ApplicationControllerTest < ActionController::TestCase
-  test 'resource_path' do
-    todo = create :todo
-    assert_equal todo_path(todo), @controller.resource_path(todo)
+  test 'project_resource_path' do
+    proj = create :project
+    todo = create :todo, project: proj
+    assert_equal project_todo_path(proj, todo), @controller.project_resource_path(proj, todo)
   end
 
   test 'generate_event' do

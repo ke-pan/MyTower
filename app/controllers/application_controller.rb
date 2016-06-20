@@ -12,16 +12,17 @@ class ApplicationController < ActionController::Base
                                project_name: project.name,
                                project_path: project_path(project),
                                resource_name: resource.try(:name) || resource.try(:title),
-                               resource_path: resource_path(resource),
+                               resource_path: project_resource_path(project, resource),
                                description: description,
                                user_name: current_user.name,
                                user_path: user_path(current_user)
   end
 
-  def resource_path(resource)
+  def project_resource_path(project, resource)
     url_for controller: resource.class.to_s.underscore.pluralize,
             action: :show,
             id: resource,
+            project_id: project,
             only_path: true
   end
 end
