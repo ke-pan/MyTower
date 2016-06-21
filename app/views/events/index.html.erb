@@ -1,6 +1,20 @@
 <h1>动态</h1>
 <div class="events">
+  <% last_midnight = 2.days.from_now %>
+  <% last_project_path = '' %>
   <% @events.each do |event| %>
+    <% if event.created_at.midnight != last_midnight %>
+      <% last_midnight = event.created_at.midnight %>
+    <div class="events-day-title">
+      <%= event.daystamps %>：
+    </div>
+    <% end %>
+    <% if event.project_path != last_project_path %>
+      <% last_project_path = event.project_path %>
+      <div class="events-project">
+        <%= link_to event.project_name, event.project_path %>：
+      </div>
+    <% end %>
     <div id=<%= dom_id(event) %>>
       <p>
         <%= event.generated_at %>
