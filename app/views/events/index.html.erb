@@ -3,7 +3,7 @@
   <% @events.each do |event| %>
     <div id=<%= dom_id(event) %>>
       <p>
-        <span class="time"><%= event.created_at %></span>
+        <%= event.generated_at %>
         <span class="userName"><%= link_to event.user_name, event.user_path %></span>
         <span class="opration"><%= event.description %>：</span>
         <span class="resource"><%= link_to event.resource_name, event.resource_path %></span>

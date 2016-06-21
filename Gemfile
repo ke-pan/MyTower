@@ -13,6 +13,7 @@ gem 'friendly_id'
 gem 'pg'
 gem 'bcrypt'
 gem 'paranoia', '~> 2.0'
+gem 'draper', '~> 1.3'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
