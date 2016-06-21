@@ -1,7 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+include FactoryGirl::Syntax::Methods
+
+team = create :team, slug: 'abc'
+project = create :project, team: team
+tom = create :user, name: 'Tom'
+jerry = create :user, name: 'Jerry'
+todo = Todo.create title: '买奶酪', project: project
+create :event, description: '创建了任务', resource: todo, team: team, user: tom, project: project

@@ -32,4 +32,6 @@
 class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
+
+  scope :recent, -> { order(created_at: :desc) }
 end

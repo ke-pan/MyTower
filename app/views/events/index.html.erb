@@ -1,0 +1,19 @@
+<h1>动态</h1>
+<div class="events">
+  <% @events.each do |event| %>
+    <div id=<%= dom_id(event) %>>
+      <p>
+        <span class="time"><%= event.created_at %></span>
+        <span class="userName"><%= link_to event.user_name, event.user_path %></span>
+        <span class="opration"><%= event.description %>：</span>
+        <span class="resource"><%= link_to event.resource_name, event.resource_path %></span>
+      </p>
+    <% if event.subresource %>
+      <p>
+        <%= link_to event.subresource, event.subresource_path %>
+      </p>
+    <% end %>
+    </div>
+  <% end %>
+</div>
+<p></p>

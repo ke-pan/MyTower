@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
     name 'project'
-    team
+    team nil
   end
 end
