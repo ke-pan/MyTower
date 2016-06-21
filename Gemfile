@@ -14,6 +14,7 @@ gem 'pg'
 gem 'bcrypt'
 gem 'paranoia', '~> 2.0'
 gem 'draper', '~> 1.3'
+gem 'timecop'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

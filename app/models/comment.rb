@@ -8,6 +8,7 @@
 #  slug       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  author_id  :integer
 #
 # Indexes
 #
@@ -22,4 +23,5 @@
 class Comment < ActiveRecord::Base
   include HexedSlugable
   belongs_to :todo
+  belongs_to :author, class_name: 'User'
 end
