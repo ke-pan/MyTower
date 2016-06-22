@@ -1,12 +1,24 @@
 include FactoryGirl::Syntax::Methods
 
-Timecop.travel(1.month.ago)
+Timecop.travel(5.days.ago)
 team = create :team, slug: 'abc'
 project = create :project, team: team
 tom = create :user, name: 'Tom'
 jerry = create :user, name: 'Jerry'
 todo = Todo.create title: '买奶酪', project: project
 create :event, description: '创建了任务', resource: todo, team: team, user: tom, project: project
+
+100.times do
+  Timecop.travel((rand(60)+1).minutes.from_now)
+  todo.destroy
+  create :event, description: '删除了任务', resource: todo, team: team,
+                 user: [tom, jerry].sample, project: project
+  Timecop.travel((rand(60)+1).minutes.from_now)
+  todo.restore
+  create :event, description: '恢复了任务', resource: todo, team: team,
+                 user: [tom, jerry].sample, project: project
+end
+
 Timecop.travel(1.hour.from_now)
 todo.update(assignee: jerry)
 create :event, description: '给 Jerry指派了任务', resource: todo, team: team, user: tom, project: project
