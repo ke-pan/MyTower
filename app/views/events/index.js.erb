@@ -1,0 +1,6 @@
+$('#events').append('<%= j render(@events) %>');
+<% if @events.last_page? %>
+  $('.pagination').remove();
+<% else %>
+  $('.pagination').replaceWith('<%= j paginate(@events) %>');
+<% end %>

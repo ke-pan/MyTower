@@ -17,6 +17,10 @@ class EventDecorator < Draper::Decorator
     end
   end
 
+  def date
+    object.created_at.midnight.to_s
+  end
+
   private
   def today
     @today = Time.zone.today
