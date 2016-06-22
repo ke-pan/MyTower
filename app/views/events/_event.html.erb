@@ -1,10 +1,13 @@
 <% if event.date != @last_midnight %>
   <% @last_midnight = event.date %>
-<div class="events-date" data-date="<%= event.date %>">
-  <%= event.daystamps %>：
-</div>
-<% end %>
-<% if event.project_path != @last_project_path %>
+  <% @last_project_path = event.project_path %>
+  <div class="events-date" data-date="<%= event.date %>">
+    <%= event.daystamps %>：
+  </div>
+  <div class="events-project" data-project-path="<%= event.project_path %>">
+    <%= link_to event.project_name, event.project_path %>：
+  </div>
+<% elsif event.project_path != @last_project_path %>
   <% @last_project_path = event.project_path %>
   <div class="events-project" data-project-path="<%= event.project_path %>">
     <%= link_to event.project_name, event.project_path %>：

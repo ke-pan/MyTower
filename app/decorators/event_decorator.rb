@@ -18,15 +18,15 @@ class EventDecorator < Draper::Decorator
   end
 
   def date
-    object.created_at.midnight.to_s
+    object.created_at.strftime('%Y-%m-%d')
   end
 
   private
   def today
-    @today = Time.zone.today
+    @today ||= Time.zone.today.midnight
   end
 
   def yesterday
-    @yesterday = Time.zone.yesterday
+    @yesterday ||= Time.zone.yesterday.midnight
   end
 end
