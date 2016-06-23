@@ -3,46 +3,54 @@ require 'test_helper'
 class TodosControllerTest < ActionController::TestCase
   setup do
     @project = create :project
+    @user = create :user, name: 'Steven Curry'
+    create :access, user: @user, project: @project
+  end
+
+  test 'index without auth' do
+    project = create :project
+    get :index, project_id: project
+    assert_redirected_to root_path
   end
 
   test 'index' do
-    get :index, project_id: @project
+    access_as @user, :get, :index, project_id: @project
     assert_response :success
     assert_not_nil assigns(:todos)
   end
 
   test 'show' do
     @todo = create :todo, project: @project
-    get :show, id: @todo, project_id: @project
+    access_as @user, :get, :show, id: @todo, project_id: @project
     assert_response :success
     assert_not_nil assigns(:todo)
   end
 
   test 'create with title can be saved' do
     assert_difference('Todo.count', 1) do
-      post :create, project_id: @project, todo: attributes_for(:todo)
+      access_as @user, :post, :create, project_id: @project, todo: attributes_for(:todo)
     end
     assert_response 200
   end
 
   test 'create without title cant be saved' do
     assert_difference('Todo.count', 0) do
-      post :create, project_id: @project,
-                    todo: { title: '', description: 'description' }
+      access_as @user, :post, :create, project_id: @project,
+                       todo: { title: '', description: 'description' }
     end
     assert_response 400
   end
 
   test 'create generate an event' do
     assert_difference('Event.count', 1) do
-      post :create, project_id: @project, todo: attributes_for(:todo)
+      access_as @user, :post, :create, project_id: @project, todo: attributes_for(:todo)
     end
   end
 
   test 'destroy' do
     @todo = create :todo, project: @project
     assert_difference('Todo.count', -1) do
-      delete :destroy, id: @todo, project_id: @project
+      access_as @user, :delete, :destroy, id: @todo, project_id: @project
     end
     assert_response 204
   end
@@ -50,7 +58,7 @@ class TodosControllerTest < ActionController::TestCase
   test 'destroy generate an event' do
     @todo = create :todo, project: @project
     assert_difference('Event.count', 1) do
-      delete :destroy, id: @todo, project_id: @project
+      access_as @user, :delete, :destroy, id: @todo, project_id: @project
     end
   end
 
@@ -58,7 +66,7 @@ class TodosControllerTest < ActionController::TestCase
     todo = create :todo, project: @project
     todo.destroy
     assert_difference('Todo.count', 1) do
-      put :restore, id: todo, project_id: @project
+      access_as @user, :put, :restore, id: todo, project_id: @project
     end
   end
 
@@ -66,7 +74,7 @@ class TodosControllerTest < ActionController::TestCase
     todo = create :todo, project: @project
     todo.destroy
     assert_difference('Event.count', 1) do
-      put :restore, id: todo, project_id: @project
+      access_as @user, :put, :restore, id: todo, project_id: @project
     end
   end
 

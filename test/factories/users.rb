@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    name "Joe Doe"
+    sequence(:name) { |n| "John Doe #{n}" }
     password 'abcdefg'
   end
 end

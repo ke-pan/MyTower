@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'teams#index'
   resources :teams do
     resources :projects, only: [:index, :create, :new]
     resources :events, only: [:index]

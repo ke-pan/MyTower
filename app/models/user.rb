@@ -29,4 +29,9 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :password, length: { minimum: 6 }, on: :create
+
+  def own(project)
+    access = Access.find_by(project: project, user: self)
+    access && access.owned
+  end
 end

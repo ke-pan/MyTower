@@ -11,4 +11,9 @@ class ActiveSupport::TestCase
   teardown do
     DatabaseCleaner.clean
   end
+
+  def access_as(user, verb, *args)
+    @controller.current_user = user
+    send verb, *args
+  end
 end

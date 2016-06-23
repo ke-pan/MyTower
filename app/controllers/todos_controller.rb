@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  before_action :set_and_authorize_project
   before_action :set_todo, only: [:show, :update, :destroy,
                                   :assign, :pause, :run,
                                   :finish, :reopen]
@@ -76,5 +77,9 @@ class TodosController < ApplicationController
 
   def set_todo
     @todo = Todo.friendly.find(params[:id])
+  end
+
+  def set_and_authorize_project
+    authorize project, :show?
   end
 end

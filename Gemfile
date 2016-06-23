@@ -16,6 +16,7 @@ gem 'paranoia', '~> 2.0'
 gem 'draper', '~> 1.3'
 gem 'timecop'
 gem 'kaminari'
+gem "pundit"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

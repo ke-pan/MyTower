@@ -1,10 +1,17 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  include Pundit
   protect_from_forgery with: :exception
 
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    redirect_to root_path, :alert => exception.message
+  end
+
   def current_user
-    @user ||= User.first || User.create(name: 'John Doe', password: 'abcdef')
+    @current_user ||= User.first || User.create(name: 'John Doe', password: 'abcdef')
+  end
+
+  def current_user=(current_user)
+    @current_user = current_user
   end
 
   def generate_event(project, description, resource, subresource = nil)
