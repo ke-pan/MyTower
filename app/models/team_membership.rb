@@ -7,6 +7,7 @@
 #  team_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  role       :integer          default(0), not null
 #
 # Indexes
 #
@@ -22,4 +23,6 @@
 class TeamMembership < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
+
+  enum role: [:guest, :member, :admin, :super]
 end

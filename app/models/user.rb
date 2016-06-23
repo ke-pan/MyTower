@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :team_memberships
   has_many :teams, through: :team_memberships
+  has_many :access
+  has_many :projects, through: :access
   has_many :events
   has_many :todos
 

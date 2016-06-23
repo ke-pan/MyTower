@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621142807) do
+ActiveRecord::Schema.define(version: 20160623015137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accesses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.boolean  "owned",      default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "accesses", ["project_id"], name: "index_accesses_on_project_id", using: :btree
+  add_index "accesses", ["user_id"], name: "index_accesses_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",    null: false
@@ -62,8 +73,9 @@ ActiveRecord::Schema.define(version: 20160621142807) do
   create_table "team_memberships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "role",       default: 0, null: false
   end
 
   add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
@@ -106,6 +118,8 @@ ActiveRecord::Schema.define(version: 20160621142807) do
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
+  add_foreign_key "accesses", "projects"
+  add_foreign_key "accesses", "users"
   add_foreign_key "comments", "todos"
   add_foreign_key "events", "teams"
   add_foreign_key "events", "users"

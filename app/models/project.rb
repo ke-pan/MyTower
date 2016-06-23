@@ -23,6 +23,8 @@ class Project < ActiveRecord::Base
   include HexedSlugable
   belongs_to :team
   has_many :todos
+  has_many :access
+  has_many :members, through: :access, source: :user
 
   validates :name, presence: true
 end
